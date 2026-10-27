@@ -1,0 +1,18 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.tmp
+
+# Streamlit local credentials & cache
+.streamlit/secrets.toml
+
+# Environment variables & API keys
+.env
+.env.local
