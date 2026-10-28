@@ -1,4 +1,6 @@
 # Fruit Quality Classifier
+![Uploading Fruit Quality Classifier Logo.png…]()
+
 
 An intelligent, dual-engine visual inspection platform designed to identify fruit varieties and accurately classify freshness quality (Fresh vs. Rotten) with automated decay analysis, mold detection, and shelf-life estimation.
 
