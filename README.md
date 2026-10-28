@@ -95,3 +95,6 @@ http://localhost:8501
 - **Vision AI Models**: Google Gemini Vision (`gemini-flash-lite-latest` / `gemini-flash-latest`), TensorFlow / Keras 3
 - **Data & Image Processing**: Pillow, NumPy, Pandas, Requests
 - **Database**: SQLite3
+
+by,
+108001240139,108001240150
