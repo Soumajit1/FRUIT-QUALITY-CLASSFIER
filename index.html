@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fruit Quality Classifier</title>
-    <!-- Automatic instant redirect to Streamlit app -->
-    <meta http-equiv="refresh" content="0; url=http://localhost:8501/">
-    <script>
-        // Redirect immediately to the running Streamlit server
-        window.location.replace("http://localhost:8501/");
-    </script>
     <style>
         * {
             box-sizing: border-box;
@@ -24,61 +18,149 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: #ffffff;
         }
-        iframe {
+        #app-frame {
             width: 100vw;
             height: 100vh;
             border: none;
-            display: block;
+            display: none;
         }
-        .loading-container {
+        #status-card {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            padding: 30px;
             text-align: center;
-            padding: 20px;
         }
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top: 4px solid #ff4b4b;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+        .card {
+            background-color: #1a1f2c;
+            border: 1px solid #2e384d;
+            border-radius: 14px;
+            padding: 40px;
+            max-width: 580px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
         }
         h2 {
             font-size: 24px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: #ffffff;
             font-weight: 600;
         }
         p {
+            color: #94a3b8;
             font-size: 15px;
-            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .instruction-box {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: left;
             margin-bottom: 24px;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 13.5px;
+            color: #58a6ff;
+            line-height: 1.7;
+        }
+        .instruction-box span {
+            color: #8b949e;
+            display: block;
+            margin-bottom: 4px;
+            font-family: -apple-system, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pulse-loader {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #eab308;
+            box-shadow: 0 0 0 rgba(234, 179, 8, 0.4);
+            animation: pulse 1.5s infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .status-text {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
         .btn {
-            background-color: #ff4b4b;
+            background-color: #2563eb;
             color: #ffffff;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            border: none;
+            padding: 12px 26px;
             font-size: 14px;
-            transition: background 0.2s ease;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
         .btn:hover {
-            background-color: #e03b3b;
+            background-color: #1d4ed8;
         }
     </style>
+    <script>
+        const STREAMLIT_URL = "http://localhost:8501";
+
+        function checkServer() {
+            fetch(STREAMLIT_URL, { mode: 'no-cors' })
+                .then(() => {
+                    // Server is reachable! Redirect and show iframe
+                    window.location.replace(STREAMLIT_URL);
+                })
+                .catch(() => {
+                    // Still waiting for server to start
+                    document.getElementById('status-card').style.display = 'flex';
+                    document.getElementById('app-frame').style.display = 'none';
+                });
+        }
+
+        // Check immediately on load
+        window.addEventListener('DOMContentLoaded', () => {
+            checkServer();
+            // Automatically poll every 2.5 seconds so when the user starts the backend, it auto-connects
+            setInterval(checkServer, 2500);
+        });
+    </script>
 </head>
 <body>
-    <!-- Fallback iframe in case redirect is blocked by browser policies -->
-    <iframe src="http://localhost:8501/" allow="camera; microphone; clipboard-read; clipboard-write;" onerror="showFallback()"></iframe>
+    <div id="status-card">
+        <div class="card">
+            <div class="icon">🍎</div>
+            <h2>Fruit Quality Classifier</h2>
+            <p>The web interface is waiting for the Python backend to start on <code>localhost:8501</code>.</p>
+            
+            <div class="instruction-box">
+                <span>Quick Setup (Before clicking Go Live):</span>
+                <strong>Windows:</strong> Double-click <code>run_app.bat</code> in the project folder<br>
+                <span>Or via VS Code Terminal:</span>
+                <code>streamlit run app.py</code>
+            </div>
+
+            <div class="status-text">
+                <span class="pulse-loader"></span> Listening for backend connection...
+            </div>
+
+            <button class="btn" onclick="checkServer()">Check Again</button>
+        </div>
+    </div>
+
+    <iframe id="app-frame" src="http://localhost:8501" allow="camera; microphone; clipboard-read; clipboard-write;"></iframe>
 </body>
 </html>
