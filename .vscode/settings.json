@@ -1,0 +1,10 @@
+{
+    "liveServer.settings.file": "index.html",
+    "liveServer.settings.NoBrowser": false,
+    "liveServer.settings.ignoreFiles": [
+        ".vscode/**",
+        ".venv/**",
+        "**/*.pyc",
+        "fruit_quality_model.keras"
+    ]
+}
