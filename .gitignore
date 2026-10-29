@@ -16,3 +16,6 @@ __pycache__/
 # Environment variables & API keys
 .env
 .env.local
+
+# Nested clone
+FRUIT-QUALITY-CLASSFIER/
