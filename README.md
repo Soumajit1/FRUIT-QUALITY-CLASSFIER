@@ -15,7 +15,7 @@ An intelligent, dual-engine visual inspection platform designed to identify frui
 - **Audit Records & Export**: Full chronological history tracking with one-click CSV export.
 - **Classic Minimalist UI/UX**: Clean dark aesthetic designed with custom CSS, fluid scrolling, and responsive layout.
 
----
+---------
 
 ## Project Structure
 
