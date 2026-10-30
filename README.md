@@ -33,7 +33,7 @@ FRUIT-QUALITY-CLASSIFIER/
 └── README.md                    # Project documentation
 ```
 
----
+------
 
 ## Step-by-Step Installation & Run Guide
 
